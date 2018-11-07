@@ -17,9 +17,13 @@ class MechanicalTurk {
     const PHOTOMASTERS = '21VZU98JHSTLZ5BPP4A9NOBJEK3DPG';
 
     public $config;
-    
-    public function __construct(){
-        $config = json_decode(@file_get_contents('mturkconfig.json'));
+    public $config_file = 'mturkconfig.json';
+
+    public function __construct($config_file=FALSE){
+
+        if($config_file) $this->config_file = $config_file;
+
+        $config = json_decode(@file_get_contents($this->config_file));
 
         if (!$config) {
             throw new Exception('No valid config file found and config not passed to constructor');
